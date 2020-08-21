@@ -3,7 +3,7 @@
   "name": "chatapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://shinthantaung.github.io/uploadreact/",
+  "homepage": "https://shinthantaung.github.io/",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.0.0",
