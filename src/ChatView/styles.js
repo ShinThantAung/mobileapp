@@ -3,7 +3,7 @@ const styles = theme => ({
     content: {
       height: 'calc(100vh - 100px)',
       overflow: 'auto',
-      padding: '25px',
+      padding: '20px',
       marginLeft: '300px',
       boxSizing: 'border-box',
       overflowY: 'scroll',
@@ -19,7 +19,7 @@ const styles = theme => ({
       boxSizing: 'border-box',
       wordWrap: 'break-word',
       marginTop: '10px',
-      backgroundColor: '#707BC4',
+      backgroundColor: '#5399F3',
       color: 'white',
       width: '300px',
       borderRadius: '10px'
@@ -32,8 +32,8 @@ const styles = theme => ({
       boxSizing: 'border-box',
       wordWrap: 'break-word',
       marginTop: '10px',
-      backgroundColor: '#707BC4',
-      color: 'white',
+      backgroundColor: '#EDF2F3',
+      color: 'black',
       width: '300px',
       borderRadius: '10px'
     },

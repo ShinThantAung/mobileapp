@@ -1,4 +1,17 @@
 const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  loadingroot: {
+     justify :"center"
+    
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
     signOutBtn: {
       position: 'absolute',
       bottom: '0px',

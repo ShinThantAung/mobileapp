@@ -11,7 +11,16 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import NotificationImportant from '@material-ui/icons/NotificationImportant';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
 
+// import MenuIcon from '@material-ui/icons/Menu';
+  
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+const firebase = require("firebase");
 class ChatListComponent extends React.Component {
 
   render() {
@@ -20,14 +29,22 @@ class ChatListComponent extends React.Component {
 
     if(this.props.chats.length > 0) {
       return(
+
+        
         <div className={classes.root}>
-            <Button variant="contained" 
-              fullWidth 
-              color='primary' 
-              onClick={this.newChat} 
-              className={classes.newChatBtn}>
-                New Message
-            </Button>
+
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <AccountCircleIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            
+          </Typography>
+          <Button color="inherit" onClick={this.signOut}>LogOut</Button>
+        </Toolbar>
+      </AppBar>
+ 
             <List>
               {
                 this.props.chats.map((_chat, _index) => {
@@ -62,6 +79,18 @@ class ChatListComponent extends React.Component {
                 })
               }
             </List>
+            {/* <div className={classes.root}> */}
+            <Fab size="medium" className={classes.fabButton} color="secondary" aria-label="add" onClick={this.newChat}>
+            <AddIcon />
+            </Fab>
+            {/* </div> */}
+            {/* <Button variant="contained" 
+              fullWidth 
+              color='primary' 
+              onClick={this.newChat} 
+              className={classes.newChatBtn}>
+                New Message
+            </Button>  */}
         </div>
       );
     } else {
@@ -82,6 +111,50 @@ class ChatListComponent extends React.Component {
   userIsSender = (chat) => chat.messages[chat.messages.length - 1].sender === this.props.userEmail;
   newChat = () => this.props.newChatBtnFn();
   selectChat = (index) => this.props.selectChatFn(index);
+  signOut = () => firebase.auth().signOut();
+
+  submitMessage = (msg) => {
+    const docKey = this.buildDocKey(this.state.chats[this.state.selectedChat]
+      .users
+      .filter(_usr => _usr !== this.state.email)[0])
+    firebase
+      .firestore()
+      .collection('chats')
+      .doc(docKey)
+      .update({
+        messages: firebase.firestore.FieldValue.arrayUnion({
+          sender: this.state.email,
+          message: msg,
+          timestamp: Date.now()
+        }),
+        receiverHasRead: false
+      });
+  }
+
+  // Always in alphabetical order:
+  // 'user1:user2'
+  buildDocKey = (friend) => [this.state.email, friend].sort().join(':');
+
+  newChatBtnClicked = () => this.setState({ newChatFormVisible: true, selectedChat: null });
+
+  newChatSubmit = async (chatObj) => {
+    const docKey = this.buildDocKey(chatObj.sendTo);
+    await 
+      firebase
+        .firestore()
+        .collection('chats')
+        .doc(docKey)
+        .set({
+          messages: [{
+            message: chatObj.message,
+            sender: this.state.email
+          }],
+          users: [this.state.email, chatObj.sendTo],
+          receiverHasRead: false
+        })
+    this.setState({ newChatFormVisible: false });
+    this.selectChat(this.state.chats.length - 1);
+  }
 }
 
 export default withStyles(styles)(ChatListComponent);

@@ -9,6 +9,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const firebase = require("firebase");
 
@@ -28,7 +30,7 @@ class LoginComponent extends React.Component {
     const { classes } = this.props;
 
     return (
-      <main className={classes.main}>
+      <main className={classes.main} maxWidth="xs">
         <CssBaseline/>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h5">
@@ -43,10 +45,14 @@ class LoginComponent extends React.Component {
               <InputLabel htmlFor='login-password-input'>Enter Your Password</InputLabel>
               <Input autoComplete="current-password" type="password" onChange={(e) => this.userTyping('password', e)} id='login-password-input'></Input>
             </FormControl>
+            <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
             <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>Log In</Button>
           </form>
           { this.state.serverError ? 
-            <Typography className={classes.errorText} component='h5' variant='h6'>
+            <Typography className={alert} component='h5' variant='h6'>
               Incorrect Login Information
             </Typography> :
             null
@@ -90,3 +96,6 @@ class LoginComponent extends React.Component {
 }
 
 export default withStyles(styles)(LoginComponent);
+
+
+

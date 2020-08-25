@@ -4,7 +4,8 @@ import ChatListComponent from '../chatlist/chatList';
 import ChatViewComponent from '../ChatView/chatView.js';
 import ChatTextBoxComponent from '../ChatTextBox/chatTextBox';
 import styles from './styles';
-import { Button, withStyles } from '@material-ui/core';
+import {  withStyles } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const firebase = require("firebase");
 
 // I need to investigate why sometimes
@@ -54,11 +55,14 @@ class DashboardComponent extends React.Component {
           {
             this.state.newChatFormVisible ? <NewChatComponent goToChatFn={this.goToChat} newChatSubmitFn={this.newChatSubmit}></NewChatComponent> : null
           }
-          <Button onClick={this.signOut} className={classes.signOutBtn}>LogOut</Button>
+          {/* <Button onClick={this.signOut} className={classes.signOutBtn}>LogOut</Button> */}
         </div>
       );
     } else {
-      return(<div>LOADING....</div>);
+      return(<div className={classes.loadingroot}>
+        {/* <CircularProgress /> */}
+        <CircularProgress />
+      </div>);
     }
   }
 
