@@ -13,7 +13,7 @@ const styles = theme => ({
     },
   
     userSent: {
-      float: 'left',
+      float: 'right',
       clear: 'both',
       padding: '20px',
       boxSizing: 'border-box',
@@ -26,7 +26,7 @@ const styles = theme => ({
     },
   
     friendSent: {
-      float: 'right',
+      float: 'left',
       clear: 'both',
       padding: '20px',
       boxSizing: 'border-box',
@@ -40,11 +40,11 @@ const styles = theme => ({
   
     chatHeader: {
       width: 'calc(100% - 301px)',
-      height: '50px',
+      height: '30px',
       backgroundColor: '#344195',
       position: 'fixed',
       marginLeft: '301px',
-      fontSize: '18px',
+      fontSize: '10px',
       textAlign: 'center',
       color: 'white',
       paddingTop: '10px',

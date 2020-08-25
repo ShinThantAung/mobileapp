@@ -54,7 +54,7 @@ class DashboardComponent extends React.Component {
           {
             this.state.newChatFormVisible ? <NewChatComponent goToChatFn={this.goToChat} newChatSubmitFn={this.newChatSubmit}></NewChatComponent> : null
           }
-          <Button onClick={this.signOut} className={classes.signOutBtn}>Sign Out</Button>
+          <Button onClick={this.signOut} className={classes.signOutBtn}>LogOut</Button>
         </div>
       );
     } else {
