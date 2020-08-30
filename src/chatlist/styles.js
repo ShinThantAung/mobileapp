@@ -5,8 +5,15 @@ const styles = theme => ({
       position: 'absolute',
       left: '0',
       width: 'auto',
-      boxShadow: '1px 1px 1px gray',
+      // boxShadow: '1px 1px 1px gray',
       flexGrow: 1
+    },
+    paper1: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+      flex: '1 0 auto',
+      margin: theme.spacing(1),
     },
     menuroot: {
       flexGrow: 1,

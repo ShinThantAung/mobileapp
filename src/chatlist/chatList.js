@@ -16,9 +16,9 @@ import AddIcon from '@material-ui/icons/Add';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-
+import Paper from '@material-ui/core/Paper';
 // import MenuIcon from '@material-ui/icons/Menu';
-  
+import Hidden from '@material-ui/core/Hidden';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 const firebase = require("firebase");
 class ChatListComponent extends React.Component {
@@ -33,24 +33,17 @@ class ChatListComponent extends React.Component {
         
         <div className={classes.root}>
 
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <AccountCircleIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            
-          </Typography>
-          <Button color="inherit" onClick={this.signOut}>LogOut</Button>
-        </Toolbar>
-      </AppBar>
- 
-            <List>
+<Hidden only={['xs']}>
+<Paper className={classes.paper1}>
+        <Typography className={classes.text} variant="h5" gutterBottom>
+          Inbox
+        </Typography>
+            <List className={classes.list}>
               {
                 this.props.chats.map((_chat, _index) => {
                   return (
                     <div key={_index}>
-                      <ListItem onClick={() => this.selectChat(_index)} 
+                      <ListItem button onClick={() => this.selectChat(_index)} 
                         className={classes.listItem} 
                         selected={this.props.selectedChatIndex === _index} 
                         alignItems="flex-start">
@@ -79,18 +72,23 @@ class ChatListComponent extends React.Component {
                 })
               }
             </List>
+            </Paper>
             {/* <div className={classes.root}> */}
-            <Fab size="medium" className={classes.fabButton} color="secondary" aria-label="add" onClick={this.newChat}>
+ </Hidden> 
+     <AppBar position="fixed" color="primary" className={classes.appBar}>
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <AccountCircleIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+          <Fab size="medium"  color="secondary" aria-label="add" onClick={this.newChat}>
             <AddIcon />
             </Fab>
-            {/* </div> */}
-            {/* <Button variant="contained" 
-              fullWidth 
-              color='primary' 
-              onClick={this.newChat} 
-              className={classes.newChatBtn}>
-                New Message
-            </Button>  */}
+          </Typography>
+          
+          <Button color="inherit" onClick={this.signOut}>LogOut</Button>
+        </Toolbar>
+      </AppBar>
         </div>
       );
     } else {
